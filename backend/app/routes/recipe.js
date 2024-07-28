@@ -5,17 +5,19 @@ const validator = require('express-joi-validation').createValidator({ passError:
 const recipeCtrl = require('../controllers/recipe');
 const { authorize } = require('../lib/auth');
 
-// const {
-//   ADMIN, USER, PROVIDER, AUDITOR, ONSITEADMIN, ANCILLARYSTAFF,
-// } = require('../../constants/roles');
+const {
+  USER
+} = require('../constants/roles');
 
 const router = express.Router();
 
 
-router.post('/',recipeCtrl.addRecipe);
-router.put('/',recipeCtrl.editRecipe);
-router.delete('/',recipeCtrl.removeRecipe);
-router.get('/',recipeCtrl.getRecipe);
+router.post('/',authorize([USER]),recipeCtrl.addRecipe);
+router.put('/',authorize([USER]),recipeCtrl.editRecipe);
+router.delete('/',authorize([USER]),recipeCtrl.removeRecipe);
+router.get('/',authorize([USER]),recipeCtrl.getRecipe);
+router.get('/search',authorize([USER]),recipeCtrl.searchRecipe);
+
 
 // router.post('/recipe',recipeCtrl.updateRecipe);
 // router.post('/recipe',recipeCtrl.getRecipe);

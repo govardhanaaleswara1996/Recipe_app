@@ -10,6 +10,8 @@ const {
 
 const addRecipe = async (req, res, next) => {
 try {
+  const {userId} = req.user;
+  req.body.userId = userId;
   let recipe = new Recipe(req.body);
   recipe = await recipe.save();
   const recipeObj = recipe.toObject();
@@ -25,14 +27,15 @@ try {
 };
 const editRecipe = async (req, res, next) => {
   try {
+    const {userId} = req.user;
     const id = req.body.id;
     delete req.body.id;
-    const recipe = await Recipe.findOne({ id }).exec();
+    const recipe = await Recipe.findOne({ id ,userId}).exec();
     if (!recipe) {
       const error = InvalidRecipeError;
       return next(error);
     }
-    await Recipe.findOneAndUpdate({ id}, req.body).exec();
+    await Recipe.findOneAndUpdate({ id , userId}, req.body).exec();
     res.status(200).json({
       statusCode: 200, 
       status: true,
@@ -45,12 +48,32 @@ const editRecipe = async (req, res, next) => {
 
   const getRecipe = async (req, res, next) => {
     try {
-      const {id,userId} = req.body;
+      const {userId} = req.user;
+      const {id} = req.body;
       let data;
       if(!id){
-        data =  await Recipe.find({userId}).exec();
+        data =  await Recipe.find({userId}, {
+          '_id': 0,
+          'id': 1,
+          'title':1,
+          'category': 1,
+          'ingredients': 1,
+          'instructions': 1,
+          'date':1
+        }).exec();
       }
-      data = await Recipe.findOne({ userId,id}).exec();
+      else{
+      data = await Recipe.findOne({ userId,id},
+          {
+          '_id': 0,
+          'id': 1,
+          'title':1,
+          'category': 1,
+          'ingredients': 1,
+          'instructions': 1,
+          'date':1
+        }).exec();
+    }
       res.status(201).json({
         statusCode: 201, 
         status: true, 
@@ -63,10 +86,10 @@ const editRecipe = async (req, res, next) => {
     };
     const removeRecipe = async (req, res, next) => {
       try {
+        const {userId} = req.user;
         const {id} = req.body;
-        let data;
         if(id){
-          data = await Recipe.deleteOne({id}).exec();
+        await Recipe.deleteOne({id,userId}).exec();
         }
         res.status(201).json({
           statusCode: 201, 
@@ -77,9 +100,52 @@ const editRecipe = async (req, res, next) => {
         next(error); 
       }
       };
-  
+      const searchRecipe = async (req, res, next) => {
+        try {
+            const {userId} = req.user;
+            const { searchValue } = req.body;
+            const trimmedSearchValue = `^${searchValue.toLowerCase()}`;
+            const completeAggregation = await Recipe.aggregate([
+              {
+                $match: {
+                  userId: userId,
+                  $or: [
+                    { title: { $regex:trimmedSearchValue, $options: "i" } },
+                    { category: { $regex:trimmedSearchValue, $options: "i" } },
+                    { ingredients: { $regex:trimmedSearchValue, $options: "i" } }
+                  ]
+                }
+              },
+              {
+                $project: {
+                  _id: 0,
+                  id: 1,
+                  title: 1,
+                  category: 1,
+                  ingredients: 1,
+                  instructions: 1,
+                  date: 1
+                }
+              }
+            ]);                    
+            res.status(201).json({
+            statusCode: 201, 
+            status: true, 
+            data:completeAggregation,
+            message: 'Recipe Data Fetched Successfully',
+          }); 
+
+        } catch (error) {
+          next(error); 
+        }
+        };
 
 
 
 
-module.exports = { addRecipe,editRecipe,getRecipe,removeRecipe };
+module.exports = { addRecipe,
+  editRecipe,
+  getRecipe,
+  removeRecipe,
+  searchRecipe,
+ };
