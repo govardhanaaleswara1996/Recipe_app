@@ -29,8 +29,8 @@ npm start
 
 ## The application offers the following features:
 
-Register User: Users can create an account to manage their recipes.
-User Login: Registered users can log in to access their personalized recipe collection.
+** Register User: Users can create an account to manage their recipes. **
+** User Login: Registered users can log in to access their personalized recipe collection. **
 Add Recipe: Users can add new recipes, including ingredients, instructions, and images.
 Get Recipe: Retrieve and view detailed information about any recipe.
 Edit Recipe: Users can update their existing recipes with new information.
