@@ -1,10 +1,13 @@
 'use strict';
 
+require('dotenv').config();
+require('./apolloServer');
 const express = require('express');
 const helmet = require('helmet');
 const cors = require('cors');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+
 
 require('./app/db');
 
@@ -18,8 +21,6 @@ app.use(bodyParser.json());
 app.use(morgan('tiny'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-require('./app/routes')(app);
-
 app.use('*', (req, res) => {
   res.status(200).json({
     message: 'Welcome to Recipe application',
@@ -30,3 +31,5 @@ app.use('*', (req, res) => {
 app.listen(port,()=>{
   console.log(`Server Listening On Port ${port}`);
 });
+
+

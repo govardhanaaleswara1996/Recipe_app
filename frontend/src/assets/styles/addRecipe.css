@@ -1,0 +1,57 @@
+.addRecipeContainer { 
+    width: 100%;
+    min-height: 675px;
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+    /* align-items: center; */
+}
+
+.addRecipeFormContainer {
+    width: 60vw;
+    height: auto;      
+    display: flex;   
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.addRecipeFormContainer form {
+    display: flex;   
+    flex-direction: column;
+    justify-content: center;
+    width: 40%;
+
+    /* align-items: center; */
+}
+
+.addRecipeFormContainer form label {
+    margin: 10px 0;
+
+}
+
+/* .addIngredientContainer {
+    display: flex;
+    align-items: center;
+} */
+
+.addIngredientsButton {
+    /* display: inline-block; */
+    float: right;
+    /* width: 20px !important; */
+    color: white !important;
+    margin-top: -10px;
+}
+
+.ingredientContainer {
+    display: flex;
+    flex-direction: row;
+}
+.addRecipeBtn {
+    padding: 5px;
+    font-family: bold;
+    font-size: 30px;
+    margin-top:20px;
+    color: white !important;
+    border-radius: 10px;
+}

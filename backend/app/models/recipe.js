@@ -1,17 +1,15 @@
 'use strict';
 
-const { v4: uuid } = require('uuid');
 const mongoose = require('mongoose');
-
-const { roles, USER } = require('../constants/roles');
+const { v4: uuid } = require('uuid');
 
 const { Schema } = mongoose;
 const options = {
   timestamps: true,
 };
 
-const getRequiredFiledMessage = (filed) => {
-  const message = `${filed} Should Not Be Empty`;
+const getRequiredFieldMessage = (field) => {
+  const message = `${field} Should Not Be Empty`;
   return [true, message];
 };
 
@@ -25,17 +23,21 @@ const RecipeSchema = new Schema(
     },
     title: {
       type: String,
-      required: getRequiredFiledMessage('title'),
+      required: getRequiredFieldMessage('title'),
       trim: true,
     },
     category: {
       type: String,
-      required: getRequiredFiledMessage('category'),
+      required: getRequiredFieldMessage('category'),
       trim: true,
     },
-    ingredients: [],
-    instructions:[],
-    date:{ type: Date, default: new Date() },
+    ingredients: [String],
+    instructions: [String],
+    date: {
+      type: String,
+      required: getRequiredFieldMessage('date'),
+      trim: true,
+    },
   },
   options,
 );

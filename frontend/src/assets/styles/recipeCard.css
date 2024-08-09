@@ -1,0 +1,18 @@
+.cardContainer {
+    width: 30% !important;
+    min-width: 150px !important;   
+}
+
+.cardImage {
+    position: relative;
+}
+
+.categoryName {
+    position: absolute;
+    top: auto;
+    right: 0;
+    bottom: 100px;
+    margin: 0;
+    background-color: white;
+    padding: 5px 10px;      
+}
