@@ -2,23 +2,23 @@
 
 Welcome to the Recipe Application! This application allows users to register, log in, and manage their favorite recipes with ease.
 
-# Getting Started
+## Getting Started
 
 Follow these steps to set up and run the application on your local machine.
 
-# Step 1: Navigate to the Recipe App Directory
+## Step 1: Navigate to the Recipe App Directory
 
 Open your terminal and navigate to the `Recipe_app` directory:
 cd Recipe_app
 
-# Step 2: Set Up and Start the Backend
+## Step 2: Set Up and Start the Backend
 Navigate to the backend directory, install the necessary packages, and start the server:
 
 cd backend
 npm install
 npm start
 
-# Step 3: Set Up and Start the Frontend
+## Step 3: Set Up and Start the Frontend
 
 Navigate to the frontend directory, install the necessary packages, and start the server:
 
