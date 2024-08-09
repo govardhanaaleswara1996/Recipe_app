@@ -9,22 +9,22 @@ Follow these steps to set up and run the application on your local machine.
 ## Step 1: Navigate to the Recipe App Directory
 
 Open your terminal and navigate to the `Recipe_app` directory:
-cd Recipe_app
+**cd Recipe_app**
 
 ## Step 2: Set Up and Start the Backend
 Navigate to the backend directory, install the necessary packages, and start the server:
 
-cd backend
-npm install
-npm start
+1.**cd backend**
+2.**npm install**
+3.**npm start**
 
 ## Step 3: Set Up and Start the Frontend
 
 Navigate to the frontend directory, install the necessary packages, and start the server:
 
-cd frontend
-npm install
-npm start
+1.**cd frontend**
+2.**npm install**
+3.**npm start**
 
 ## The application offers the following features:
 
